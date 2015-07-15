@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:lang="http://www.springframework.org/schema/lang" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		 http://www.springframework.org/schema/context 
+		 http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		 http://www.springframework.org/schema/mvc 
+		 http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		 http://www.springframework.org/schema/lang 
+		 http://www.springframework.org/schema/lang/spring-lang-2.0.xsd">
+
+	<mvc:annotation-driven />
+	<mvc:default-servlet-handler />
+	<context:component-scan base-package="com.lms.accountmanagement" />
+	<mvc:resources location="/resources/**" mapping="/resources/" />
+	
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+	</bean>
+	
+	<bean id="accountManagementAdminService" class="com.lms.accountmanagement.service.impl.AccountManagementAdminServiceImpl"/>
+	<bean id="accountManagementAdminDaoImpl" class="com.lms.accountmanagement.dao.impl.AccountManagementAdminDaoImpl"/>
+	<bean id="roleManagementAdminDaoImpl" class="com.lms.accountmanagement.dao.impl.RoleManagementAdminDaoImpl"/>
+	<bean id="lmsFormLoadService" class="com.lms.accountmanagement.service.impl.LMSFormLoadServiceImpl"/>
+	<bean id="lmsFormLoadDao" class="com.lms.accountmanagement.dao.impl.LMSFormLoadDaoImpl"/>
+	<bean id="clientPreConfiguredDao" class="com.lms.accountmanagement.dao.impl.ClientPreConfiguredDaoImpl"/>
+	<bean id="manageClientDao" class="com.lms.accountmanagement.dao.impl.ManageClientDaoImpl"/>
+</beans>
