@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:lang="http://www.springframework.org/schema/lang" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		 http://www.springframework.org/schema/context 
+		 http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		 http://www.springframework.org/schema/mvc 
+		 http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		 http://www.springframework.org/schema/lang 
+		 http://www.springframework.org/schema/lang/spring-lang-2.0.xsd
+		 http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+	<mvc:annotation-driven />
+	<mvc:default-servlet-handler />
+	<context:component-scan base-package="com.rms" />
+	<mvc:resources location="/resources/**" mapping="/resources/" />
+	<import resource="client-beans.xml" />
+	<import resource="user-beans.xml" />
+	
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+	</bean>
+	
+	<bean id="accountManagementAdminService" class="com.rms.framework.service.impl.AccountManagementAdminServiceImpl"/>
+	<bean id="lmsFormLoadService" class="com.rms.framework.service.impl.LMSFormLoadServiceImpl"/>
+	<bean id="accountManagementAdminDaoImpl" class="com.rms.framework.dao.impl.AccountManagementAdminDaoImpl"/>
+	<bean id="lmsRolesDao" class="com.rms.framework.dao.impl.LmsRolesDaoImpl"/>
+	
+	
+	
+	<!--  <bean id="accountManagementAdminDaoImpl" class="com.rms.framework.dao.impl.AccountManagementAdminDaoImpl"/>
+	<bean id="roleManagementAdminDaoImpl" class="com.rms.framework.dao.impl.RoleManagementAdminDaoImpl"/>
+	<bean id="lmsFormLoadDao" class="com.rms.framework.dao.impl.LMSFormLoadDaoImpl"/>
+	<bean id="clientPreConfiguredDao" class="com.rms.framework.dao.impl.ClientPreConfiguredDaoImpl"/> -->
+</beans>

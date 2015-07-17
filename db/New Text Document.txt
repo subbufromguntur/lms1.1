@@ -1,0 +1,6 @@
+select * from location where location_type = 0
+
+
+select * from location where location_type=2 and parent_id=732   --cities
+
+select * from location where location_type=1 and parent_id=100  --states

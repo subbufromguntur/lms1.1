@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="base.definition"
+		template="/WEB-INF/jsp/template/layout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/WEB-INF/jsp/template/header.jsp" />
+		<put-attribute name="mainContainer" value="" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/template/footer.jsp" />
+	</definition>
+	
+	<definition name="base.ajax"
+		template="/WEB-INF/jsp/template/ajaxLayout.jsp">
+		<put-attribute name="body" value="" />
+	</definition>
+	
+	<definition name="home" extends="base.definition">
+		<put-attribute name="title" value="Welcome to LMS" />
+		<put-attribute name="mainContainer" value="/WEB-INF/jsp/login.jsp" />
+		<put-attribute name="header" value="/WEB-INF/jsp/template/loginheader.jsp" />
+	</definition>
+	
+	<definition name="changePasswordFrom" extends="base.definition">
+		<put-attribute name="title" value="" />
+		<put-attribute name="mainContainer" value="/WEB-INF/jsp/changePasswordFrom.jsp" />
+		<put-attribute name="header" value="/WEB-INF/jsp/template/header.jsp" />
+	</definition>
+	<definition name="homePage" extends="base.definition">
+		<put-attribute name="title" value="" />
+		<put-attribute name="mainContainer" value="/WEB-INF/jsp/addrole.jsp" />
+	</definition>
+	<definition name="manageRolesAddRoleM" extends="base.definition">
+		<put-attribute name="title" value="" />
+		<put-attribute name="mainContainer" value="/WEB-INF/jsp/addrole.jsp" />
+	</definition>
+	<definition name="manageClientAddClientM" extends="base.definition">
+		<put-attribute name="title" value="" />
+		<put-attribute name="mainContainer" value="/WEB-INF/jsp/addclient.jsp" />
+	</definition>
+	<definition name="manageUserAddUserM" extends="base.definition">
+		<put-attribute name="title" value="" />
+		<put-attribute name="mainContainer" value="/WEB-INF/jsp/adduser.jsp" />
+	</definition>
+	<definition name="success" extends="base.definition">
+		<put-attribute name="title" value="" />
+		<put-attribute name="mainContainer" value="/WEB-INF/jsp/success.jsp" />
+	</definition>
+</tiles-definitions>

@@ -1,0 +1,25 @@
+@CHARSET "ISO-8859-1";
+
+#id_leftcontainer{
+	float:left;
+   margin: 0; 
+   padding: 7.50em 0em .25em 0em; 
+   border: solid 1px #30c9e0; 
+   background: #CEECF5; 
+   height: 100%;
+   width:18%;
+   display: inline;
+}
+
+#id_progressBarNew {
+	position: fixed;
+	z-index: 1000;
+	top: 10%;
+	left: 0;
+	right: 0;
+	bottom: 5%;
+	height: 100%;
+	width: 100%;
+	background: rgba(255, 255, 255, .8) no-repeat;
+}
+
