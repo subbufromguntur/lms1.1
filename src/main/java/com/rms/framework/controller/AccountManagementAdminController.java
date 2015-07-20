@@ -115,7 +115,8 @@ public class AccountManagementAdminController {
 	}
 
 	@RequestMapping(value = "/saveLoginDetails", method = RequestMethod.GET)
-	public String saveLoginDetails(Model model,
+	public String saveLoginDetails(Model model, 
+			@ModelAttribute("lmsUserCredentails") LmsUserCredentails loginBean,
 			BindingResult errors, RedirectAttributes attributes) {
 		this.accountManagementAdminService.saveLoginDetails();
 		return "home";
