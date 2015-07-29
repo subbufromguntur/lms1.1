@@ -17,8 +17,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rms.loyalty.access.service.AuthenticationService;
 import com.rms.loyalty.beans.ClientBean;
+import com.rms.loyalty.constant.RMSConstant;
+import com.rms.loyalty.exception.FetchException;
 import com.rms.loyalty.organization.user.model.UserCredentails;
 import com.rms.loyalty.startup.service.RMStartupService;
+import com.rms.loyalty.utility.RMSPropertiesUtil;
 
 @Controller
 public class HomeController {
@@ -32,6 +35,7 @@ public class HomeController {
 	private RMStartupService rmsStartupService;
 	@Resource
 	private AuthenticationService authenticationService;
+	RMSPropertiesUtil rmsPropertiesUtil = new RMSPropertiesUtil();
 
 	/**
 	 * @return
@@ -40,19 +44,31 @@ public class HomeController {
 	public String getHomePage(Model model,@ModelAttribute("lmsUserCredentails") UserCredentails loginBean, BindingResult errors, RedirectAttributes attributes) {
 		return "home";
 	}
-
+	@RequestMapping("/logout")
+	public String logout(Model model,@ModelAttribute("lmsUserCredentails") UserCredentails loginBean, BindingResult errors, RedirectAttributes attributes) {
+		model.addAttribute("successMessage",
+				rmsPropertiesUtil.getMessage(RMSConstant.LOGOUT_MESSAGE));
+		return "home";
+	}
+	
 	@RequestMapping(value = "/homePage")
 	public String homePage() {
 		return "homePage";
 	}
 	
 	@RequestMapping(value = "/manageRolesAddRoleM")
-	public String manageRolesAddRoleM(Model model) {
+	public String manageRolesAddRoleM(Model model) throws FetchException {
 		model.addAttribute("roles",
 				this.authenticationService.getManageRoles());
 		return "manageRolesAddRoleM";
 	}
 	
+	@RequestMapping(value = "/manageAddProgramM")
+	public String manageAddProgramM(Model model) throws FetchException {
+		model.addAttribute("roles",
+				this.authenticationService.getManageRoles());
+		return "manageAddProgramM";
+	}
 	@RequestMapping(value = "/getCountryValues")
 	public @ResponseBody String getStates(Model model,
 			@RequestParam("stateIndicator") String stateIndicator,

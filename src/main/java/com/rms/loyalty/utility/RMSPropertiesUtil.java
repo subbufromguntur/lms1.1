@@ -1,39 +1,25 @@
 package com.rms.loyalty.utility;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.util.Locale;
 
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-public class RMSPropertiesUtil  extends PropertyPlaceholderConfigurer {
-
-    private static Map<String, String> propertiesMap;
-    // Default as in PropertyPlaceholderConfigurer
-    private int springSystemPropertiesMode = SYSTEM_PROPERTIES_MODE_FALLBACK;
-
-    @Override
-    public void setSystemPropertiesMode(int systemPropertiesMode) {
-        super.setSystemPropertiesMode(systemPropertiesMode);
-        springSystemPropertiesMode = systemPropertiesMode;
-    }
-
-    @Override
-    protected void processProperties(ConfigurableListableBeanFactory beanFactory, Properties props) throws BeansException {
-        super.processProperties(beanFactory, props);
-
-        propertiesMap = new HashMap<String, String>();
-        for (Object key : props.keySet()) {
-            String keyStr = key.toString();
-            String valueStr = resolvePlaceholder(keyStr, props, springSystemPropertiesMode);
-            propertiesMap.put(keyStr, valueStr);
-        }
-    }
-
-    public static String getProperty(String name) {
-        return propertiesMap != null? propertiesMap.get(name).toString(): null;
-    }
-
+@Configuration
+public class RMSPropertiesUtil extends WebMvcConfigurerAdapter {
+	
+	@Bean
+	public MessageSource messageSource() {
+		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+		messageSource.setBasename("messages");
+		messageSource.setDefaultEncoding("UTF-8");
+		return messageSource;
+	}
+	
+	public String getMessage(String key) {
+		return messageSource().getMessage(key, null, Locale.US);
+	}
 }

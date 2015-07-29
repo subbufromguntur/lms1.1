@@ -64,6 +64,7 @@
     <script type="text/javascript" src="<c:url value="/js/client/clientmanagement.js"/> "> </script>
     <script type="text/javascript" src="<c:url value="/js/base.js"/> "></script>
     <script type="text/javascript" src="<c:url value="/js/user/user.js"/> "> </script>
+    <script type="text/javascript" src="<c:url value="/js/program/program.js"/> "> </script>
     
     
    

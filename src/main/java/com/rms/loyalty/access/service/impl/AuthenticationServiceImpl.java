@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rms.loyalty.access.service.AuthenticationService;
+import com.rms.loyalty.exception.FetchException;
 import com.rms.loyalty.organization.dao.OrganizationtDao;
 import com.rms.loyalty.organization.user.dao.UserManagementDao;
 import com.rms.loyalty.organization.user.model.UserCredentails;
@@ -25,11 +26,11 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	
 	
 	
-	public UserCredentails checkCredentials(UserCredentails userCredentails) {
+	public UserCredentails checkCredentials(UserCredentails userCredentails) throws FetchException {
 		return this.userManagementDao.checkCredentials(userCredentails);
 	}
 	
-	public UserCredentails changePassword(UserCredentails loginBean) {
+	public UserCredentails changePassword(UserCredentails loginBean) throws FetchException {
 		loginBean.setAllowedRecentUsedPasswordCount(1);
 		loginBean.setBadTryCount(0);
 		loginBean.setPassword(loginBean.getChangedPassword());
@@ -73,13 +74,12 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 		return userCredentails;
 	}
 
-	public void updateBadTryCount(UserCredentails loginBean) {
+	public void updateBadTryCount(UserCredentails loginBean) throws FetchException {
 		this.userManagementDao.updateBadTryCount(loginBean);
 	
 	}
 
 	public Object getManageRoles() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

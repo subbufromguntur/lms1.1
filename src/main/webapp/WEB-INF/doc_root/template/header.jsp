@@ -101,7 +101,7 @@
 
                     <li><a href="javascript:void(0);" id="btn-lock"><span>--:--</span>Lock screen</a></li>
 
-                    <li class="red"><a href="index">Logout</a></li>
+                    <li class="red"><a href="logout" name="logout">Logout</a></li>
 
                 </ul>
             </div><!-- End of .right -->

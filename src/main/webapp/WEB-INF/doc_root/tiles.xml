@@ -47,6 +47,10 @@
 		<put-attribute name="title" value="" />
 		<put-attribute name="mainContainer" value="/WEB-INF/doc_root/user/adduser.jsp" />
 	</definition>
+	<definition name="manageAddProgramM" extends="base.definition">
+		<put-attribute name="title" value="" />
+		<put-attribute name="mainContainer" value="/WEB-INF/doc_root/program/addprogram.jsp" />
+	</definition>
 	<definition name="success" extends="base.definition">
 		<put-attribute name="title" value="" />
 		<put-attribute name="mainContainer" value="/WEB-INF/doc_root/access/success.jsp" />

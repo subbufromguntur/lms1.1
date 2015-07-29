@@ -18,5 +18,7 @@ public class RMSConstant {
 	public static final String INVALID_PASSWORD = "INVALID_PASSWORD";
 	public static final String LOCKED_USER = "LOCKED_USER";
 	public static final String NETWORK_PROBLEM = "NETWORK_PROBLEM";
+	public static final String LOGOUT_MESSAGE = "LOGOUT_MESSAGE";
+	public static final String DATABASE_EXCEPTION = "DATABASE_EXCEPTION";
 
 }

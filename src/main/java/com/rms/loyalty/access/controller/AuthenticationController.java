@@ -1,14 +1,11 @@
 package com.rms.loyalty.access.controller;
 
-import java.util.Locale;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.hibernate.service.spi.ServiceException;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.rms.framework.authentication.LoginValidator;
 import com.rms.loyalty.access.service.AuthenticationService;
 import com.rms.loyalty.constant.RMSConstant;
+import com.rms.loyalty.exception.FetchException;
 import com.rms.loyalty.organization.user.model.UserCredentails;
 import com.rms.loyalty.utility.RMSPropertiesUtil;
 
@@ -32,15 +30,16 @@ public class AuthenticationController {
 	private final Logger LOGGER = Logger.getLogger(this.getClass());
 	@Resource
 	private AuthenticationService authenticationService;
-	@Resource
-	MessageSource messageSource;
+	
+	RMSPropertiesUtil rmsPropertiesUtil = new RMSPropertiesUtil();
+	
 
 	@SuppressWarnings("null")
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String getURLTestPage(Model model,
 			@ModelAttribute("lmsUserCredentails") UserCredentails loginBean,
 			BindingResult errors, RedirectAttributes attributes,
-			HttpServletRequest req) throws ServiceException, java.net.NoRouteToHostException {
+			HttpServletRequest req){
 		attributes.addFlashAttribute("loginBean", loginBean);
 		try{
 		UserCredentails bean = authenticationService
@@ -58,7 +57,7 @@ public class AuthenticationController {
 				} else if (bean.getAllowedRecentUsedPasswordCount() > 0) {
 					if (bean.getBadTryCount() > 3) {
 						model.addAttribute("errorMessage",
-								getMessage(RMSConstant.LOCKED_USER));
+								rmsPropertiesUtil.getMessage(RMSConstant.LOCKED_USER));
 						return "home";
 					}
 					loginBean.setBadTryCount(0);
@@ -68,23 +67,28 @@ public class AuthenticationController {
 			} else if (!bean.getPassword().equals(loginBean.getPassword())) {
 				if (bean.getBadTryCount() > 3) {
 					model.addAttribute("errorMessage",
-							getMessage(RMSConstant.LOCKED_USER));
+							rmsPropertiesUtil.getMessage(RMSConstant.LOCKED_USER));
 					return "home";
 				}
 				model.addAttribute("errorMessage",
-						getMessage(RMSConstant.INVALID_PASSWORD));
+						rmsPropertiesUtil.getMessage(RMSConstant.INVALID_PASSWORD));
 				bean.setBadTryCount(bean.getBadTryCount()+1);
 				this.authenticationService.updateBadTryCount(bean);
 				return "home";
 			}
 		} else {
 			model.addAttribute("errorMessage",
-					getMessage(RMSConstant.NO_USER_FOUND));
+					rmsPropertiesUtil.getMessage(RMSConstant.NO_USER_FOUND));
 			return "home";
 		}
+		}catch(FetchException e){
+				model.addAttribute("errorMessage",rmsPropertiesUtil.getMessage(RMSConstant.DATABASE_EXCEPTION));
+				return "home";
 		}catch(Exception e){
-			model.addAttribute("errorMessage",getMessage(RMSConstant.NETWORK_PROBLEM));
-			return "home";
+			if(e != null){
+				model.addAttribute("errorMessage",e.getCause().getMessage());
+				return "home";
+			}
 		}
 		return null;
 	}
@@ -93,7 +97,7 @@ public class AuthenticationController {
 	public String saveUserNamePasswordChanged(Model model,
 			@ModelAttribute("lmsUserCredentails") UserCredentails loginBean,
 			BindingResult errors, RedirectAttributes attributes,
-			HttpServletRequest req) throws ServiceException {
+			HttpServletRequest req) throws ServiceException, FetchException {
 
 		HttpSession httpSession = req.getSession();
 		String userName = httpSession.getAttribute("userName").toString();
@@ -101,14 +105,14 @@ public class AuthenticationController {
 		if (loginBean.getUserName().isEmpty()
 				|| loginBean.getUserName() == null) {
 			model.addAttribute("errorMessage",
-					getMessage(RMSConstant.USERNAME_CHANGED));
+					rmsPropertiesUtil.getMessage(RMSConstant.USERNAME_CHANGED));
 			return "changePasswordFrom";
 		}
 
 		if (loginBean.getPassword().isEmpty()
 				|| loginBean.getPassword() == null) {
 			model.addAttribute("errorMessage",
-					getMessage(RMSConstant.PASSWORD_CHANGED));
+					rmsPropertiesUtil.getMessage(RMSConstant.PASSWORD_CHANGED));
 			return "changePasswordFrom";
 		}
 
@@ -119,7 +123,7 @@ public class AuthenticationController {
 		UserCredentails bean = this.authenticationService
 				.changePassword(sesstionloginBean);
 		model.addAttribute("successMessage",
-				getMessage(RMSConstant.PASSWORD_CHANGED));
+				rmsPropertiesUtil.getMessage(RMSConstant.PASSWORD_CHANGED));
 		LoginValidator loginValidator = new LoginValidator();
 		loginValidator.validate(bean, errors);
 
@@ -136,7 +140,7 @@ public class AuthenticationController {
 	@RequestMapping(value = "/saveLoginDetails", method = RequestMethod.GET)
 	public String saveLoginDetails(Model model, 
 			@ModelAttribute("lmsUserCredentails") UserCredentails loginBean,
-			BindingResult errors, RedirectAttributes attributes) {
+			BindingResult errors, RedirectAttributes attributes) throws FetchException {
 		this.authenticationService.saveLoginDetails();
 		return "home";
 	}
@@ -152,17 +156,5 @@ public class AuthenticationController {
 		// model.addAttribute("roles",
 		// this.accountManagementAdminService.getRolesData());
 		return "homePage";
-	}
-
-	public MessageSource getMessageSource() {
-		return messageSource;
-	}
-
-	public void setMessageSource(MessageSource messageSource) {
-		this.messageSource = messageSource;
-	}
-
-	private String getMessage(String key) {
-		return messageSource.getMessage(key, null, Locale.US);
 	}
 }

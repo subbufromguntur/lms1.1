@@ -53,7 +53,7 @@
 						<li>
                             <a href="javascript:void(0);"><img src="img/icons/packs/fugue/16x16/ui-layered-pane.png" alt="" height=16 width=16>Manage Program</a>
                             <ul>
-                                <li><a href="#" id="id_manageProgram_addProgramM">Add Program (M)</a></li>
+                                <li><a href="#" class="id_manageProgram_addProgramM">Add Program (M)</a></li>
                                 <li><a href="">Add Program (C)</a></li>
                                 <li><a href="">Modify Program (M)</a></li>
                                 <li><a href="">Modify Program (C)</a></li>
