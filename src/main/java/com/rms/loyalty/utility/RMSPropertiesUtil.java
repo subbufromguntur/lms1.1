@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 public class RMSPropertiesUtil extends WebMvcConfigurerAdapter {
-	
+
 	@Bean
 	public MessageSource messageSource() {
 		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
@@ -18,7 +18,7 @@ public class RMSPropertiesUtil extends WebMvcConfigurerAdapter {
 		messageSource.setDefaultEncoding("UTF-8");
 		return messageSource;
 	}
-	
+
 	public String getMessage(String key) {
 		return messageSource().getMessage(key, null, Locale.US);
 	}

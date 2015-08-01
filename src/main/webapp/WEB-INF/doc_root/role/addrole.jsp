@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!doctype html>
-<html class="no-js" lang="en"> <!--<![endif]-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
 <head>
- <script type="text/javascript">
+<script type="text/javascript">
 function getRoleDependencies(){
 		var listOfClientTypes = null;
 		$('#id_manage_client').empty();//.append('<option label="--Select--" value="-1"></option>');
@@ -162,15 +163,17 @@ $('.addall').click();
 }
 </script>
 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <meta name="description" content="slick and responsive Admin Template build with modern techniques like HTML5 and CSS3 to be used for backend solutions of any size.">
-    
-    <!-- Mobile viewport optimized: h5bp.com/viewport -->
-    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
-    <!-- iPhone: Don't render numbers as call links -->
-    <meta name="format-detection" content="telephone=no">
-	<script lang="javascript">
+<meta name="description"
+	content="slick and responsive Admin Template build with modern techniques like HTML5 and CSS3 to be used for backend solutions of any size.">
+
+<!-- Mobile viewport optimized: h5bp.com/viewport -->
+<meta name="viewport"
+	content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+<!-- iPhone: Don't render numbers as call links -->
+<meta name="format-detection" content="telephone=no">
+<script lang="javascript">
     	function initialization(){
     		$('.id_manageRoles_addRoleM').css("color", "red");
     		$('.with_sub')[1].click();
@@ -179,30 +182,33 @@ $('.addall').click();
 </head>
 <body onload="initialization()">
 
-    <!-- The container of the sidebar and content box -->
-    <div role="main" id="main" class="container_12 clearfix">
-        
+	<!-- The container of the sidebar and content box -->
+	<div role="main" id="main" class="container_12 clearfix">
+
 		<jsp:include page="/WEB-INF/doc_root/template/toolbar.jsp"></jsp:include>
 		<jsp:include page="/WEB-INF/doc_root/template/sidebar.jsp"></jsp:include>
 
-        <!-- Here goes the content. -->
-        <section id="content" class="container_12 clearfix" data-sort=true>
+		<!-- Here goes the content. -->
+		<section id="content" class="container_12 clearfix" data-sort=true>
 			<h1 class="grid_12">Add Role (Maker)</h1>
 			<div id="faq_1">
-					<p class="grid_12">
-						Add a new role which suits the user or department for managing their activities. A role will be associated with a group of permissions. e.g. of role are L1 user, L1 admin, program manager, bank admin etc. Every client/partner will need to create the roles and their associated permissions which best suits them.
-					</p>
+				<p class="grid_12">Add a new role which suits the user or
+					department for managing their activities. A role will be associated
+					with a group of permissions. e.g. of role are L1 user, L1 admin,
+					program manager, bank admin etc. Every client/partner will need to
+					create the roles and their associated permissions which best suits
+					them.</p>
 			</div>
 			<form action="submitRolesRequest" method="post" class="grid_12">
 				<fieldset>
 					<legend>Role Details</legend>
-					
+
 					<div class="row">
-						<label for="f1_placeholder">
-							<strong>Role Name</strong>
+						<label for="f1_placeholder"> <strong>Role Name</strong>
 						</label>
 						<div>
-							<select id="id_role_name" name="roleName" onchange="getRoleDependencies()">
+							<select id="id_role_name" name="roleName"
+								onchange="getRoleDependencies()">
 								<option value=-1>-----Select-----</option>
 								<c:forEach items="${roles}" var="results">
 									<option id="${results.roleName}" value="${results.roleName}">${results.roleName}</option>
@@ -210,97 +216,101 @@ $('.addall').click();
 							</select>
 						</div>
 					</div>
-					
+
 					<div class="row">
-						<label>
-							<strong>Role Description</strong>
-							<small></small>
+						<label> <strong>Role Description</strong> <small></small>
 						</label>
 						<div>
 							<textarea rows=5 name="role_desc" id="id_role_desc"></textarea>
 						</div>
 					</div>
-					
+
 					<div class="row">
-						<label>
-							<strong>Permissions - Manage Client</strong>
+						<label> <strong>Permissions - Manage Client</strong>
 						</label>
 						<div>
-							<select multiple class="dualselects" data-size="small" id="id_manage_client" name="manage_client">
+							<select multiple class="dualselects" data-size="small"
+								id="id_manage_client" name="manage_client">
 							</select>
 						</div>
 					</div>
-					
+
 					<div class="row">
-						<label>
-							<strong>Permissions - Manage Roles</strong>
+						<label> <strong>Permissions - Manage Roles</strong>
 						</label>
 						<div>
-							<select multiple class="dualselects" data-size=small id="id_manage_role" name="manage_role" >
+							<select multiple class="dualselects" data-size=small
+								id="id_manage_role" name="manage_role">
 							</select>
 						</div>
 					</div>
-					
+
 					<div class="row">
-						<label>
-							<strong>Permissions - Manage Users</strong>
+						<label> <strong>Permissions - Manage Users</strong>
 						</label>
 						<div>
-							<select multiple class="dualselects" data-size=small id="id_manage_users" name="manage_users" >
+							<select multiple class="dualselects" data-size=small
+								id="id_manage_users" name="manage_users">
 							</select>
 						</div>
 					</div>
-					
+
 					<div class="row">
-						<label>
-							<strong>Permissions - Manage Program</strong>
+						<label> <strong>Permissions - Manage Program</strong>
 						</label>
 						<div>
-							<select multiple class="dualselects" data-size=small id="id_manage_program" name="manage_program">
+							<select multiple class="dualselects" data-size=small
+								id="id_manage_program" name="manage_program">
 							</select>
 						</div>
 					</div>
-					
+
 					<div class="row">
-						<label>
-							<strong>Permissions - Manage Account</strong>
+						<label> <strong>Permissions - Manage Account</strong>
 						</label>
 						<div>
-							<select multiple class="dualselects" data-size=small id="id_manage_account" name="manage_account">
+							<select multiple class="dualselects" data-size=small
+								id="id_manage_account" name="manage_account">
 							</select>
 						</div>
 					</div>
-					
+
 					<div class="row">
-						<label>
-							<strong>Permissions - Batch Process</strong>
+						<label> <strong>Permissions - Batch Process</strong>
 						</label>
 						<div>
-							<select multiple class="dualselects" data-size=small id="id_batch_process" name="batch_process">
+							<select multiple class="dualselects" data-size=small
+								id="id_batch_process" name="batch_process">
 							</select>
 						</div>
 					</div>
-					
+
 					<div class="actions">
 						<div class="left">
 							<input type="reset" value="Cancel" />
 						</div>
-					
+
 						<div class="right">
-							<input type="submit" value="Submit" name=submit id="id_submit_roles"/>
+							<input type="submit" value="Submit" name=submit
+								id="id_submit_roles" />
 						</div>
-					</div><!-- End of .actions -->
-				</fieldset><!-- End of fieldset -->
-				
-			</form><!-- End of form -->
+					</div>
+					<!-- End of .actions -->
+				</fieldset>
+				<!-- End of fieldset -->
 
-        </section><!-- End of #content -->
+			</form>
+			<!-- End of form -->
 
-    </div><!-- End of #main -->
+		</section>
+		<!-- End of #content -->
+
+	</div>
+	<!-- End of #main -->
 
 
-    <!-- Spawn $$.loaded -->
-    <script>
+	<!-- Spawn $$.loaded -->
+	<script>
         $$.loaded();
     </script>
 </body>

@@ -11,7 +11,8 @@ import java.util.List;
 public class TestUtils {
 
 	public static List<String> readFromFile(File file) throws IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(
+				new FileInputStream(file), "UTF-8"));
 		List<String> items = new ArrayList<String>();
 		try {
 			String currentLine;

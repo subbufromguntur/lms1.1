@@ -12,7 +12,7 @@ public interface RMStartupDao extends GenericDao<Country, Long> {
 	List<Country> getStates(String[] countryArray);
 
 	List<Country> getCities(String[] citiesArray);
-	
+
 	List<String> getData(String string);
 
 }

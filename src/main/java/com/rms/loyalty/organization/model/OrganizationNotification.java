@@ -2,21 +2,13 @@ package com.rms.loyalty.organization.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 /*@Entity
-@Table(name = "client_notifications")*/
+ @Table(name = "client_notifications")*/
 public class OrganizationNotification {
 	@Id
 	@GeneratedValue
@@ -30,16 +22,23 @@ public class OrganizationNotification {
 	private String description;
 	@Column(name = "status")
 	private String status;
-	
-	/*@OneToOne
-	@PrimaryKeyJoinColumn*/
-	
+
+	/*
+	 * @OneToOne
+	 * 
+	 * @PrimaryKeyJoinColumn
+	 */
+
 	private OrganizationGLAccount organizationGLAccount;
-	
-	
-	/*@OneToOne(cascade = CascadeType.ALL, mappedBy="organizationFileConfigLocation")
-	@LazyCollection(LazyCollectionOption.FALSE)
-	@PrimaryKeyJoinColumn*/
+
+	/*
+	 * @OneToOne(cascade = CascadeType.ALL,
+	 * mappedBy="organizationFileConfigLocation")
+	 * 
+	 * @LazyCollection(LazyCollectionOption.FALSE)
+	 * 
+	 * @PrimaryKeyJoinColumn
+	 */
 	private OrganizationFileConfigLocation organizationFileConfigLocation = null;
 
 	public Long getId() {
@@ -92,7 +91,7 @@ public class OrganizationNotification {
 	}
 
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "client_gl_account_id")
+	@JoinColumn(name = "client_gl_account_id")
 	public OrganizationGLAccount getClientGlAccount() {
 		return organizationGLAccount;
 	}
@@ -101,5 +100,4 @@ public class OrganizationNotification {
 		this.organizationGLAccount = organizationGLAccount;
 	}
 
-		
 }

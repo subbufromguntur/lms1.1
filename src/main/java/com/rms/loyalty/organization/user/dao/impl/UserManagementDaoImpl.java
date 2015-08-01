@@ -13,10 +13,10 @@ import com.rms.loyalty.exception.FetchException;
 import com.rms.loyalty.organization.user.dao.UserManagementDao;
 import com.rms.loyalty.organization.user.model.UserCredentails;
 
-@Component(value="userManagementDao")
+@Component(value = "userManagementDao")
 @Transactional
 @Service
-public class UserManagementDaoImpl  extends
+public class UserManagementDaoImpl extends
 		GenericDaoHibernateImpl<UserCredentails, Long> implements
 		UserManagementDao {
 	private final Logger logger = Logger.getLogger(this.getClass());
@@ -36,7 +36,6 @@ public class UserManagementDaoImpl  extends
 			if (!query2.list().isEmpty())
 				return (UserCredentails) query2.list().get(0);
 		} catch (Exception e) {
-			System.out.println("==============234567==========="+e.getMessage());
 			this.logger.debug(e.getMessage());
 			throw new FetchException(e.getMessage());
 		}

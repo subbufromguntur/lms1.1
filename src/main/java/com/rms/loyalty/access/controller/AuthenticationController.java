@@ -1,5 +1,8 @@
 package com.rms.loyalty.access.controller;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,71 +26,81 @@ import com.rms.loyalty.exception.FetchException;
 import com.rms.loyalty.organization.user.model.UserCredentails;
 import com.rms.loyalty.utility.RMSPropertiesUtil;
 
-
 @Controller
 @SessionAttributes
 public class AuthenticationController {
 	private final Logger LOGGER = Logger.getLogger(this.getClass());
 	@Resource
 	private AuthenticationService authenticationService;
-	
+
 	RMSPropertiesUtil rmsPropertiesUtil = new RMSPropertiesUtil();
-	
 
 	@SuppressWarnings("null")
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String getURLTestPage(Model model,
 			@ModelAttribute("lmsUserCredentails") UserCredentails loginBean,
 			BindingResult errors, RedirectAttributes attributes,
-			HttpServletRequest req){
+			HttpServletRequest req) {
 		attributes.addFlashAttribute("loginBean", loginBean);
-		try{
-		UserCredentails bean = authenticationService
-				.checkCredentials(loginBean);
-		
-		if (bean != null) {
-			if (bean.getPassword().equals(loginBean.getPassword())) {
-				HttpSession httpSession = req.getSession();
-				httpSession.setAttribute("userName", bean.getUserName());
-				httpSession.setAttribute("password", bean.getPassword());
-				httpSession.setAttribute("loginBean", bean);
+		try {
+			UserCredentails bean = authenticationService
+					.checkCredentials(loginBean);
 
-				if (bean.getAllowedRecentUsedPasswordCount() == 0) {
-					return "changePasswordFrom";
-				} else if (bean.getAllowedRecentUsedPasswordCount() > 0) {
+			if (bean != null) {
+				if (bean.getPassword().equals(loginBean.getPassword())) {
+					HttpSession httpSession = req.getSession();
+					httpSession.setAttribute("userName", bean.getUserName());
+					httpSession.setAttribute("password", bean.getPassword());
+					httpSession.setAttribute("loginBean", bean);
+
+					if (bean.getAllowedRecentUsedPasswordCount() == 0) {
+						return "changePasswordFrom";
+					} else if (bean.getAllowedRecentUsedPasswordCount() > 0) {
+						if (bean.getBadTryCount() > 3) {
+							model.addAttribute(
+									"errorMessage",
+									rmsPropertiesUtil
+											.getMessage(RMSConstant.LOCKED_USER));
+							return "home";
+						}
+						loginBean.setBadTryCount(0);
+						this.authenticationService.updateBadTryCount(bean);
+						return "redirect:manageClientAddClientM";
+					}
+				} else if (!bean.getPassword().equals(loginBean.getPassword())) {
 					if (bean.getBadTryCount() > 3) {
-						model.addAttribute("errorMessage",
-								rmsPropertiesUtil.getMessage(RMSConstant.LOCKED_USER));
+						model.addAttribute("errorMessage", rmsPropertiesUtil
+								.getMessage(RMSConstant.LOCKED_USER));
 						return "home";
 					}
-					loginBean.setBadTryCount(0);
+					model.addAttribute("errorMessage", rmsPropertiesUtil
+							.getMessage(RMSConstant.INVALID_PASSWORD));
+					bean.setBadTryCount(bean.getBadTryCount() + 1);
 					this.authenticationService.updateBadTryCount(bean);
-					return "redirect:manageClientAddClientM";
-				}
-			} else if (!bean.getPassword().equals(loginBean.getPassword())) {
-				if (bean.getBadTryCount() > 3) {
-					model.addAttribute("errorMessage",
-							rmsPropertiesUtil.getMessage(RMSConstant.LOCKED_USER));
 					return "home";
 				}
+			} else {
 				model.addAttribute("errorMessage",
-						rmsPropertiesUtil.getMessage(RMSConstant.INVALID_PASSWORD));
-				bean.setBadTryCount(bean.getBadTryCount()+1);
-				this.authenticationService.updateBadTryCount(bean);
+						rmsPropertiesUtil.getMessage(RMSConstant.NO_USER_FOUND));
 				return "home";
 			}
-		} else {
-			model.addAttribute("errorMessage",
-					rmsPropertiesUtil.getMessage(RMSConstant.NO_USER_FOUND));
+		} catch (FetchException e) {
+			System.out.println("========================================== "+e.getMessage());
+			model.addAttribute("errorMessage", rmsPropertiesUtil
+					.getMessage(RMSConstant.DATABASE_EXCEPTION));
 			return "home";
-		}
-		}catch(FetchException e){
-				model.addAttribute("errorMessage",rmsPropertiesUtil.getMessage(RMSConstant.DATABASE_EXCEPTION));
-				return "home";
-		}catch(Exception e){
-			if(e != null){
-				model.addAttribute("errorMessage",e.getCause().getMessage());
-				return "home";
+		} catch (Exception e) {
+			if (e != null) {
+				if (e.getCause().getMessage()
+						.equalsIgnoreCase("Could not open connection")) {
+					model.addAttribute("errorMessage", rmsPropertiesUtil
+							.getMessage(RMSConstant.NETWORK_PROBLEM));
+					return "error";
+				} else {
+					model.addAttribute("errorMessage", e.getCause()
+							.getMessage());
+					return "error";
+				}
 			}
 		}
 		return null;
@@ -138,9 +151,10 @@ public class AuthenticationController {
 	}
 
 	@RequestMapping(value = "/saveLoginDetails", method = RequestMethod.GET)
-	public String saveLoginDetails(Model model, 
+	public String saveLoginDetails(Model model,
 			@ModelAttribute("lmsUserCredentails") UserCredentails loginBean,
-			BindingResult errors, RedirectAttributes attributes) throws FetchException {
+			BindingResult errors, RedirectAttributes attributes)
+			throws FetchException {
 		this.authenticationService.saveLoginDetails();
 		return "home";
 	}

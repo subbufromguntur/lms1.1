@@ -21,58 +21,57 @@ public class UserCredentails {
 	@GeneratedValue
 	@Column(name = "user_id")
 	private Long id;
-	
-	@Column(name="client_id", nullable = false)
+
+	@Column(name = "client_id", nullable = false)
 	private String clientId;
-	
-	@Column(name="username", nullable = false)
+
+	@Column(name = "username", nullable = false)
 	private String userName;
-	
-	@Column(name="password", nullable = false)
+
+	@Column(name = "password", nullable = false)
 	private String password;
-	
-	@Column(name="creation_datetime", nullable = false)
+
+	@Column(name = "creation_datetime", nullable = false)
 	private Date creationDatetime = new Date();
-	
-	@Column(name="last_modified_datetime", nullable = false)
+
+	@Column(name = "last_modified_datetime", nullable = false)
 	private Date lastModifiedDatetime = new Date();
-	
-	@Column(name="last_accessed_datetime", nullable = false)
+
+	@Column(name = "last_accessed_datetime", nullable = false)
 	private Date lastAccessedDatetime = new Date();
-	
-	@Column(name="bad_try_count")
+
+	@Column(name = "bad_try_count")
 	private int badTryCount;
-	
-	@Column(name="last_passwords_used")
+
+	@Column(name = "last_passwords_used")
 	private String lastPasswordsUsed;
-	
-	@Column(name="allowed_recent_used_password_count")
+
+	@Column(name = "allowed_recent_used_password_count")
 	private int allowedRecentUsedPasswordCount;
-	
-	@Column(name="parent_id")
+
+	@Column(name = "parent_id")
 	private int parentId;
-	
-	@Column(name="status")
+
+	@Column(name = "status")
 	private String status;
-	
-	@Column(name="macker_comments")
+
+	@Column(name = "macker_comments")
 	private String mackerComments;
-	
-	@Column(name="checker_comments")
+
+	@Column(name = "checker_comments")
 	private String checkerComments;
-	
-	@Column(name="description")
+
+	@Column(name = "description")
 	private String description;
-	
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private UserProfile userProfile = null;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private UserPermission userPermission = null;
-	
+
 	@Transient
 	private String changedPassword = null;
 	@Transient
@@ -154,7 +153,8 @@ public class UserCredentails {
 		return allowedRecentUsedPasswordCount;
 	}
 
-	public void setAllowedRecentUsedPasswordCount(int allowedRecentUsedPasswordCount) {
+	public void setAllowedRecentUsedPasswordCount(
+			int allowedRecentUsedPasswordCount) {
 		this.allowedRecentUsedPasswordCount = allowedRecentUsedPasswordCount;
 	}
 
@@ -229,5 +229,5 @@ public class UserCredentails {
 	public void setIndicator(String indicator) {
 		this.indicator = indicator;
 	}
-	
+
 }

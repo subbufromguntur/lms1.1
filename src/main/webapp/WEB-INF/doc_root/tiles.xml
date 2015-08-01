@@ -3,33 +3,33 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-	<definition name="base.definition"
-		template="/WEB-INF/doc_root/template/layout.jsp">
+	<definition name="base.definition" template="/WEB-INF/doc_root/template/layout.jsp">
 		<put-attribute name="title" value="" />
-		<put-attribute name="header" value="/WEB-INF/doc_root/template/header.jsp" />
+		<put-attribute name="header"
+			value="/WEB-INF/doc_root/template/header.jsp" />
 		<put-attribute name="mainContainer" value="" />
-		<put-attribute name="footer" value="/WEB-INF/doc_root/template/footer.jsp" />
+		<put-attribute name="footer"
+			value="/WEB-INF/doc_root/template/footer.jsp" />
 	</definition>
-	
+
 	<definition name="base.definition.login"
 		template="/WEB-INF/doc_root/template/loginlayout.jsp">
-		
 		<put-attribute name="mainContainer" value="" />
 	</definition>
-	
-	<definition name="base.ajax"
-		template="/WEB-INF/doc_root/template/ajaxLayout.jsp">
+
+	<definition name="base.ajax" template="/WEB-INF/doc_root/template/ajaxLayout.jsp">
 		<put-attribute name="body" value="" />
 	</definition>
-	
+
 	<definition name="home" extends="base.definition.login">
 		<put-attribute name="title" value="Welcome to LMS" />
 		<put-attribute name="mainContainer" value="/WEB-INF/doc_root/access/login.jsp" />
-	</definition> 
-	
+	</definition>
+
 	<definition name="changePasswordFrom" extends="base.definition.login">
 		<put-attribute name="title" value="" />
-		<put-attribute name="mainContainer" value="/WEB-INF/doc_root/changePasswordFrom.jsp" />
+		<put-attribute name="mainContainer"
+			value="/WEB-INF/doc_root/access/changePasswordFrom.jsp" />
 	</definition>
 	<definition name="homePage" extends="base.definition">
 		<put-attribute name="title" value="" />
@@ -41,7 +41,8 @@
 	</definition>
 	<definition name="manageClientAddClientM" extends="base.definition">
 		<put-attribute name="title" value="" />
-		<put-attribute name="mainContainer" value="/WEB-INF/doc_root/org/addclient.jsp" />
+		<put-attribute name="mainContainer"
+			value="/WEB-INF/doc_root/org/addorganization.jsp" />
 	</definition>
 	<definition name="manageUserAddUserM" extends="base.definition">
 		<put-attribute name="title" value="" />
@@ -49,10 +50,22 @@
 	</definition>
 	<definition name="manageAddProgramM" extends="base.definition">
 		<put-attribute name="title" value="" />
-		<put-attribute name="mainContainer" value="/WEB-INF/doc_root/program/addprogram.jsp" />
+		<put-attribute name="mainContainer"
+			value="/WEB-INF/doc_root/program/addprogram.jsp" />
 	</definition>
-	<definition name="success" extends="base.definition">
+	<definition name="success" extends="base.definition.login">
 		<put-attribute name="title" value="" />
-		<put-attribute name="mainContainer" value="/WEB-INF/doc_root/access/success.jsp" />
+		<put-attribute name="mainContainer"
+			value="/WEB-INF/doc_root/access/success.jsp" />
+	</definition>
+	<definition name="logout" extends="base.definition.login">
+		<put-attribute name="title" value="" />
+		<put-attribute name="mainContainer"
+			value="/WEB-INF/doc_root/access/logout.jsp" />
+	</definition>
+	<definition name="error" extends="base.definition.login">
+		<put-attribute name="title" value="" />
+		<put-attribute name="mainContainer"
+			value="/WEB-INF/doc_root/access/error.jsp" />
 	</definition>
 </tiles-definitions>

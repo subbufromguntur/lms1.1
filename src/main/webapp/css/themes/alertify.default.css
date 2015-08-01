@@ -6,9 +6,9 @@
 	font-family: sans-serif;
 }
 .alertify {
-	background: #FFF;
-	border: 10px solid #333; /* browsers that don't support rgba */
-	border: 10px solid rgba(0,0,0,.7);
+	background: #fcfcfc;
+	border: 10px solid #000080; /* browsers that don't support rgba */
+	border: 10px solid rgba(0,0,128,.7);
 	border-radius: 8px;
 	box-shadow: 0 3px 3px rgba(0,0,0,.3);
 	-webkit-background-clip: padding;     /* Safari 4? Chrome 6? */
@@ -59,8 +59,8 @@
 		.alertify-button-ok,
 		.alertify-button-ok:hover,
 		.alertify-button-ok:focus {
-			background-color: #5CB811;
-			border: 1px solid #3B7808;
+			background-color: #428de3;
+			border: 1px solid #428de3;
 		}
 
 .alertify-log {
@@ -76,6 +76,6 @@
 		background: rgba(254,26,0,.9);
 	}
 	.alertify-log-success {
-		background: #5CB811;
-		background: rgba(92,184,17,.9);
+		background: #428de3;
+		background: rgba(66,141,227,.9);
 	}

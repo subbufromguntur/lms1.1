@@ -16,15 +16,15 @@ public class UserPermission {
 	@GeneratedValue
 	@Column(name = "user_id")
 	private Long id;
-	
-	@Column(name="user_group_id")
+
+	@Column(name = "user_group_id")
 	private int userGroupId;
-	
-	@Column(name="user_permission_list")
+
+	@Column(name = "user_permission_list")
 	private String userPermissionList;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_id")
 	private UserCredentails userCredentails;
 
 	public Long getId() {
@@ -58,6 +58,5 @@ public class UserPermission {
 	public void setLmsUserCredentails(UserCredentails userCredentails) {
 		this.userCredentails = userCredentails;
 	}
-	
-	
+
 }

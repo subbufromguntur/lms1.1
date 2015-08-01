@@ -224,7 +224,7 @@
 		if ($content.data('sort') && !(Modernizr.touch && !mango.config.contents.sortableOnTouchDevices)) {
 			$content.sortable({
 				handle: '.header',
-				items: $content.find('.box').parent(),
+				//items: $content.find('.box').parent(),
 
 				distance: 5,
 				tolerance: 'pointer',
@@ -760,7 +760,7 @@
 						effect   = current.prevEffect,
 						endPos   = { opacity : 0 },
 						cleanUp  = function () {
-							$(this).trigger('onReset').remove();
+							//$(this).trigger('onReset').remove();
 						};
 
 					wrap.removeClass('fancybox-opened');
@@ -805,7 +805,7 @@
 					var $form = $(this);
 
 					// Set up rows view
-					// Let labels have equal width and same height as the corresponding <div>
+					// Let labels have equal width and same height as the corresponding <div> subramanyam
 
 					// - Clean up old values
 					var $rows = $form.find('.row'),

@@ -24,8 +24,9 @@ public class GenericDaoHibernateImpl<T, ID> implements GenericDao<T, ID> {
 	/**
 	 * Session provider to get the current session Injection of Session provider
 	 */
-	/*@Autowired
-	private sessionfactory sessionfactory;*/
+	/*
+	 * @Autowired private sessionfactory sessionfactory;
+	 */
 	@Autowired
 	public SessionFactory sessionfactory;
 
@@ -55,7 +56,7 @@ public class GenericDaoHibernateImpl<T, ID> implements GenericDao<T, ID> {
 	 * (non-Javadoc)
 	 * 
 	 */
-	
+
 	public void updateEntity(T entity) {
 		this.sessionfactory.getCurrentSession().update(entity);
 	}
@@ -66,7 +67,7 @@ public class GenericDaoHibernateImpl<T, ID> implements GenericDao<T, ID> {
 	 * (non-Javadoc)
 	 * 
 	 */
-	
+
 	public void mergeEntity(T entity) {
 		this.sessionfactory.getCurrentSession().merge(entity);
 	}
@@ -78,21 +79,21 @@ public class GenericDaoHibernateImpl<T, ID> implements GenericDao<T, ID> {
 	 * 
 	 */
 	@SuppressWarnings("unchecked")
-	
 	public List<T> getListByQuery(String query) {
-		Query finalQuery = this.sessionfactory.getCurrentSession().createQuery(query);
+		Query finalQuery = this.sessionfactory.getCurrentSession().createQuery(
+				query);
 		return finalQuery.list();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * .lang.String)
+	 * @see .lang.String)
 	 */
-	
+
 	public T getEntityByQuery(String query) {
-		Query finalQuery = this.sessionfactory.getCurrentSession().createQuery(query);
+		Query finalQuery = this.sessionfactory.getCurrentSession().createQuery(
+				query);
 		@SuppressWarnings("unchecked")
 		List<T> list = finalQuery.list();
 		if (list != null) {
@@ -109,5 +110,4 @@ public class GenericDaoHibernateImpl<T, ID> implements GenericDao<T, ID> {
 		this.sessionfactory = sessionfactory;
 	}
 
-	
 }

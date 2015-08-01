@@ -55,5 +55,5 @@ public interface GenericDao<T, ID> {
 	 * @return T
 	 */
 	T getEntityByQuery(String query);
-	
+
 }

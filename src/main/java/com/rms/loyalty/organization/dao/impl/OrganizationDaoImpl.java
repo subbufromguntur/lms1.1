@@ -11,11 +11,12 @@ import com.rms.loyalty.dao.impl.GenericDaoHibernateImpl;
 import com.rms.loyalty.organization.dao.OrganizationtDao;
 import com.rms.loyalty.organization.model.OrganizationInfo;
 
-@Component(value="organizationtDao")
+@Component(value = "organizationtDao")
 @Transactional
 @Service
 public class OrganizationDaoImpl extends
-GenericDaoHibernateImpl<OrganizationInfo, Long> implements OrganizationtDao{
+		GenericDaoHibernateImpl<OrganizationInfo, Long> implements
+		OrganizationtDao {
 
 	@Override
 	public void submitClient(OrganizationInfo organizationInfo) {

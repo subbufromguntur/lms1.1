@@ -5,7 +5,6 @@ import java.util.Date;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rms.loyalty.access.service.AuthenticationService;
@@ -18,25 +17,24 @@ import com.rms.loyalty.organization.user.model.UserProfile;
 
 @Service
 @Transactional
-public class AuthenticationServiceImpl implements AuthenticationService{
+public class AuthenticationServiceImpl implements AuthenticationService {
 	@Resource
 	private OrganizationtDao organizationtDao;
 	@Resource
 	public UserManagementDao userManagementDao;
-	
-	
-	
-	public UserCredentails checkCredentials(UserCredentails userCredentails) throws FetchException {
+
+	public UserCredentails checkCredentials(UserCredentails userCredentails)
+			throws FetchException {
 		return this.userManagementDao.checkCredentials(userCredentails);
 	}
-	
-	public UserCredentails changePassword(UserCredentails loginBean) throws FetchException {
+
+	public UserCredentails changePassword(UserCredentails loginBean)
+			throws FetchException {
 		loginBean.setAllowedRecentUsedPasswordCount(1);
 		loginBean.setBadTryCount(0);
 		loginBean.setPassword(loginBean.getChangedPassword());
 		return this.userManagementDao.updateUser(loginBean);
 	}
-
 
 	public void saveLoginDetails() {
 		this.userManagementDao.submitUser(prepareLoginBean());
@@ -46,7 +44,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 		UserCredentails userCredentails = new UserCredentails();
 		UserProfile userProfile = new UserProfile();
 		UserPermission userPermission = new UserPermission();
-		
+
 		userCredentails.setAllowedRecentUsedPasswordCount(0);
 		userCredentails.setBadTryCount(0);
 		userCredentails.setCheckerComments("Created Directly For Admin");
@@ -56,27 +54,24 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 		userCredentails.setLastAccessedDatetime(new Date());
 		userCredentails.setLastModifiedDatetime(new Date());
 		userCredentails.setLastPasswordsUsed("reward360");
-		//lmsUserCredentails.setLmsUserPermission(lmsUserPermission123);
-		//lmsUserCredentails.setLmsUserProfile(lmsUserProfile1234);
+		// lmsUserCredentails.setLmsUserPermission(lmsUserPermission123);
+		// lmsUserCredentails.setLmsUserProfile(lmsUserProfile1234);
 		userCredentails.setMackerComments("Created Directly For Admin");
-		//lmsUserCredentails.setParentId(parentId);
+		// lmsUserCredentails.setParentId(parentId);
 		userCredentails.setPassword("reward360");
 		userCredentails.setStatus("Progress");
 		userCredentails.setUserName("reward360");
-		
-		
-		
-		
+
 		userCredentails.setLmsUserProfile(userProfile);
 		userCredentails.setLmsUserPermission(userPermission);
-		
-		
+
 		return userCredentails;
 	}
 
-	public void updateBadTryCount(UserCredentails loginBean) throws FetchException {
+	public void updateBadTryCount(UserCredentails loginBean)
+			throws FetchException {
 		this.userManagementDao.updateBadTryCount(loginBean);
-	
+
 	}
 
 	public Object getManageRoles() {

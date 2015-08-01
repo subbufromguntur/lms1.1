@@ -3,7 +3,7 @@ package com.rms.loyalty.startup.service;
 import java.util.List;
 
 import com.rms.framework.model.Country;
-import com.rms.loyalty.beans.ClientPreConfiguredData;
+import com.rms.loyalty.beans.OrganizationDataLoader;
 
 public interface RMStartupService {
 
@@ -13,7 +13,7 @@ public interface RMStartupService {
 
 	String getStates(String[] strings);
 
-	ClientPreConfiguredData getClientPreConfiguredData();
+	OrganizationDataLoader getClientPreConfiguredData();
 
 	List<String> getData(String query);
 

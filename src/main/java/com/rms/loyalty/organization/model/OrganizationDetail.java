@@ -16,35 +16,35 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
-@Table(name = "client_configuration_details")
+@Table(name = "organization_configuration_details")
 public class OrganizationDetail {
 	@Id
 	@GeneratedValue
-	@Column(name = "client_configuration_details_id")
-	private Long id ;
-	@Column(name="phone_1")
+	@Column(name = "organization_configuration_details_id")
+	private Long id;
+	@Column(name = "phone_1")
 	private String phone1;
-	@Column(name="phone_2")
+	@Column(name = "phone_2")
 	private String phone2;
-	@Column(name="address_line_1")
+	@Column(name = "address_line_1")
 	private String addressLine1;
-	@Column(name="address_line_2")
+	@Column(name = "address_line_2")
 	private String addressLine2;
-	@Column(name="country")
+	@Column(name = "country")
 	private String country;
-	@Column(name="state")
+	@Column(name = "state")
 	private String state;
-	@Column(name="city")
+	@Column(name = "city")
 	private String city;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "client_id")
+	@JoinColumn(name = "organization_id")
 	private OrganizationInfo organizationInfo;
-	
-	public OrganizationDetail(){
-		
+
+	public OrganizationDetail() {
+
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -108,7 +108,7 @@ public class OrganizationDetail {
 	public void setCity(String city) {
 		this.city = city;
 	}
-	
+
 	public OrganizationInfo getClientBean() {
 		return organizationInfo;
 	}

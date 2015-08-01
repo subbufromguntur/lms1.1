@@ -2,7 +2,6 @@ package com.rms.loyalty.organization.user.controller;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,7 +21,7 @@ public class UserManagementController {
 	private UserManagementService userManagementService;
 	@Resource
 	private OrganizationService organizationService;
-	
+
 	/**
 	 * 
 	 * @param model
@@ -30,34 +29,38 @@ public class UserManagementController {
 	 * @param attributes
 	 * @return
 	 * 
-	 * While loading add user this will call and load client details and 
-	 * roles from database.
+	 *         While loading add user this will call and load client details and
+	 *         roles from database.
 	 */
 	@RequestMapping(value = "/manageUserAddUserM", method = RequestMethod.GET)
-	public String manageUserAddUserM(Model model,
+	public String manageUserAddUserM(
+			Model model,
 			@ModelAttribute("lmsUserCredentails") UserCredentails userCredentails,
 			RedirectAttributes attributes) {
-		model.addAttribute("client", this.organizationService.getClientDetails());
+		model.addAttribute("organizationInfo",
+				this.organizationService.getClientDetails());
 		return "manageUserAddUserM";
 	}
-	
+
 	/**
 	 * 
 	 * @param model
 	 * @param userCredentails
 	 * @param attributes
-	 * @return
-	 * This will call when you click submit button from client screen, and load all the values into database
+	 * @return This will call when you click submit button from client screen,
+	 *         and load all the values into database
 	 */
-	@RequestMapping(value = "/submitUser")
-	public String submitUser(Model model,
+	@RequestMapping(value = "/submitUser",  method = RequestMethod.POST)
+	public String submitUser(
+			Model model,
 			@ModelAttribute("lmsUserCredentails") UserCredentails userCredentails,
 			RedirectAttributes attributes) {
-		//attributes.addFlashAttribute("message", "User has been saved successfully.");
-		model.addAttribute("message", "User has been saved successfully.");
+		// attributes.addFlashAttribute("message",
+		// "User has been saved successfully.");
+		model.addAttribute("successMessage", "User has been saved successfully.");
 		this.userManagementService.submitUser(userCredentails);
-		//return "redirect:manageUserAddUserM";
+		// return "redirect:manageUserAddUserM";
 		return "success";
 	}
-	
+
 }

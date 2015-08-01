@@ -6,52 +6,49 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
-@Table(name = "client_configuration_info")
+@Table(name = "organization_configuration_info")
 public class OrganizationInfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "client_id")
+	@Column(name = "organization_id")
 	private Long id;
-	@Column(name="client_name")
-	private String clientName;
-	@Column(name="parent_id")
+	@Column(name = "organization_name")
+	private String organizationName;
+	@Column(name = "parent_id")
 	private String parent;
-	@Column(name="client_type")
+	@Column(name = "organization_type")
 	private String type;
-	@Column(name="creation_date")
+	@Column(name = "creation_date")
 	private Date creationDate;
-	@Column(name="last_modified_date")
+	@Column(name = "last_modified_date")
 	private Date lastModifiedDate;
-	@Column(name="category")
+	@Column(name = "category")
 	private String category;
-	@Column(name="region")
+	@Column(name = "region")
 	private String region;
-	@Column(name="status")
+	@Column(name = "status")
 	private String status;
-	
-	@Column(name="timezone")
+
+	@Column(name = "timezone")
 	private String timeZone;
-	@Column(name="description")
+	@Column(name = "description")
 	private String description;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private OrganizationDetail organizationDetail = null;
-	
+
 	@OneToMany(cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<OrganizationGLAccount> organizationGLAccount = null;
@@ -62,14 +59,6 @@ public class OrganizationInfo {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getClientName() {
-		return clientName;
-	}
-
-	public void setClientName(String clientName) {
-		this.clientName = clientName;
 	}
 
 	public String getParent() {
@@ -157,10 +146,34 @@ public class OrganizationInfo {
 		return organizationGLAccount;
 	}
 
-	public void setClientGlAccount(List<OrganizationGLAccount> organizationGLAccount) {
+	public void setClientGlAccount(
+			List<OrganizationGLAccount> organizationGLAccount) {
 		this.organizationGLAccount = organizationGLAccount;
 	}
-	
-	
+
+	public String getOrganizationName() {
+		return organizationName;
+	}
+
+	public void setOrganizationName(String organizationName) {
+		this.organizationName = organizationName;
+	}
+
+	public OrganizationDetail getOrganizationDetail() {
+		return organizationDetail;
+	}
+
+	public void setOrganizationDetail(OrganizationDetail organizationDetail) {
+		this.organizationDetail = organizationDetail;
+	}
+
+	public List<OrganizationGLAccount> getOrganizationGLAccount() {
+		return organizationGLAccount;
+	}
+
+	public void setOrganizationGLAccount(
+			List<OrganizationGLAccount> organizationGLAccount) {
+		this.organizationGLAccount = organizationGLAccount;
+	}
 
 }

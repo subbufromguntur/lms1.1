@@ -21,15 +21,14 @@ import org.springframework.web.servlet.view.tiles3.TilesView;
 @PropertySource("classpath:messages.properties")
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 
-	/*@Bean
-	public UrlBasedViewResolver setupViewResolver() {
-		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		resolver.setPrefix("/WEB-INF/doc_root/");
-		resolver.setSuffix(".jsp");
-		resolver.setViewClass(JstlView.class);
-		return resolver;
-	}*/
-	
+	/*
+	 * @Bean public UrlBasedViewResolver setupViewResolver() {
+	 * InternalResourceViewResolver resolver = new
+	 * InternalResourceViewResolver(); resolver.setPrefix("/WEB-INF/doc_root/");
+	 * resolver.setSuffix(".jsp"); resolver.setViewClass(JstlView.class); return
+	 * resolver; }
+	 */
+
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/access").setViewName("login");
@@ -38,30 +37,30 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 	// Maps resources path to webapp/resources
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/js/**").addResourceLocations("/js/");
-        registry.addResourceHandler("/css/**").addResourceLocations("/css/");
-        registry.addResourceHandler("/html/**").addResourceLocations("/html/");
-        registry.addResourceHandler("/img/**").addResourceLocations("/img/"); 
-        registry.addResourceHandler("/extras/**").addResourceLocations("/extras/"); 
+		registry.addResourceHandler("/css/**").addResourceLocations("/css/");
+		registry.addResourceHandler("/html/**").addResourceLocations("/html/");
+		registry.addResourceHandler("/img/**").addResourceLocations("/img/");
+		registry.addResourceHandler("/extras/**").addResourceLocations(
+				"/extras/");
 		registry.addResourceHandler("/resources/**").addResourceLocations(
 				"/resources/");
 	}
 
 	// Provides internationalization of messages
-	 @Bean
-	    public MessageSource messageSource() {
+	@Bean
+	public MessageSource messageSource() {
 
-	        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-	        messageSource.setBasenames("classpath:messages", "classpath:messages");
-	        // if true, the key of the message will be displayed if the key is not
-	        // found, instead of throwing a NoSuchMessageException
-	        messageSource.setUseCodeAsDefaultMessage(true);
-	        messageSource.setDefaultEncoding("UTF-8");
-	        // # -1 : never reload, 0 always reload
-	        messageSource.setCacheSeconds(0);
-	        return messageSource;
-	    }
+		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+		messageSource.setBasenames("classpath:messages", "classpath:messages");
+		// if true, the key of the message will be displayed if the key is not
+		// found, instead of throwing a NoSuchMessageException
+		messageSource.setUseCodeAsDefaultMessage(true);
+		messageSource.setDefaultEncoding("UTF-8");
+		// # -1 : never reload, 0 always reload
+		messageSource.setCacheSeconds(0);
+		return messageSource;
+	}
 
-	
 	/**
 	 * ViewResolver configuration required to work with Tiles2-based views.
 	 */
@@ -78,9 +77,8 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public TilesConfigurer tilesConfigurer() {
 		TilesConfigurer configurer = new TilesConfigurer();
-		configurer.setDefinitions(new String[] {
-			"/WEB-INF/doc_root/tiles.xml"				
-		});
+		configurer
+				.setDefinitions(new String[] { "/WEB-INF/doc_root/tiles.xml" });
 		configurer.setCheckRefresh(true);
 		return configurer;
 	}

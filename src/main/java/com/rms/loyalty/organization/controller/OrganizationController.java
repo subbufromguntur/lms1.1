@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.rms.framework.model.Country;
-import com.rms.loyalty.beans.ClientBean;
-import com.rms.loyalty.beans.ClientGlAccountBean;
-import com.rms.loyalty.beans.ClientPreConfiguredData;
+import com.rms.loyalty.beans.OrganizationBean;
+import com.rms.loyalty.beans.OrganizationGlAccountBean;
+import com.rms.loyalty.beans.OrganizationDataLoader;
+import com.rms.loyalty.constant.RMSConstant;
 import com.rms.loyalty.organization.service.OrganizationService;
 import com.rms.loyalty.startup.service.RMStartupService;
+import com.rms.loyalty.utility.RMSPropertiesUtil;
 
 @Controller
 @SessionAttributes
@@ -28,88 +30,101 @@ public class OrganizationController {
 	private OrganizationService organizationService;
 	@Resource
 	private RMStartupService rmsStartupService;
-	
+	RMSPropertiesUtil rmsPropertiesUtil = new RMSPropertiesUtil();
 	/**
 	 * 
 	 * @param model
-	 * @param clientBean
-	 * @return
-	 * This will call addclient page on load
+	 * @param organizationBean
+	 * @return This will call addclient page on load
 	 */
 	@RequestMapping(value = "/manageClientAddClientM", method = RequestMethod.GET)
 	public String manageClientAddClientM(Model model,
-			@ModelAttribute("clientBean") ClientBean clientBean,
+			@ModelAttribute("organizationBean") OrganizationBean organizationBean,
 			RedirectAttributes attributes) {
 		List<Country> countryList = this.rmsStartupService.getCountries();
-		List<String> timeZoneList = this.rmsStartupService.getData("select zone_name from zone");
-		ClientPreConfiguredData clientPreConfiguredDataList = this.rmsStartupService.getClientPreConfiguredData();
-		
+		List<String> timeZoneList = this.rmsStartupService
+				.getData("select zone_name from zone");
+		OrganizationDataLoader clientPreConfiguredDataList = this.rmsStartupService
+				.getClientPreConfiguredData();
+
 		model.addAttribute("countryList", countryList);
 		model.addAttribute("timeZone", timeZoneList);
 		model.addAttribute("programData", clientPreConfiguredDataList);
-		model.addAttribute("clientBean", clientBean);
-		
+		model.addAttribute("organizationBean", organizationBean);
+
 		attributes.addFlashAttribute("countryList", countryList);
 		attributes.addFlashAttribute("timeZone", timeZoneList);
-		attributes.addFlashAttribute("clientPreConfiguredDataList", clientPreConfiguredDataList);
-		attributes.addFlashAttribute("clientBean", clientBean);
+		attributes.addFlashAttribute("clientPreConfiguredDataList",
+				clientPreConfiguredDataList);
+		attributes.addFlashAttribute("organizationBean", organizationBean);
 		return "manageClientAddClientM";
 	}
-	
+
 	/**
 	 * 
 	 * @param model
-	 * @param clientBean
+	 * @param organizationBean
 	 * @param attributes
-	 * @return
-	 * which click on add client gl account this will call
+	 * @return which click on add client gl account this will call
 	 */
 	@RequestMapping(value = "/addClientGlAccount", method = RequestMethod.POST)
 	public String addClientGlAccount(Model model,
-			@ModelAttribute("clientBean") ClientBean clientBean,
+			@ModelAttribute("organizationBean") OrganizationBean organizationBean,
 			RedirectAttributes attributes, HttpServletRequest req) {
+
+		/*
+		 * List<Country> countryList = this.rmsStartupService.getCountries();
+		 * List<String> timeZoneList = this.rmsStartupService.gettimeZone();
+		 * List<OrganizationDataLoader> clientPreConfiguredDataList =
+		 * this.rmsStartupService.getClientPreConfiguredData();
+		 */
+
+		List<OrganizationGlAccountBean> clientGlAccountBeanList = organizationBean
+				.getOrganizationGlAccountBean();
+		OrganizationGlAccountBean organizationGlAccountBean = new OrganizationGlAccountBean();
+		clientGlAccountBeanList.add(organizationGlAccountBean);
+		organizationGlAccountBean.setAccountId(req.getParameter("accountId"));
+		organizationGlAccountBean.setAccountNumber(req.getParameter("accountNumber"));
+		organizationGlAccountBean.setAccountType(req.getParameter("accountType"));
+		organizationBean.setOrganizationGlAccountBean(clientGlAccountBeanList);
+		String country = req.getParameter("organizationConfigurationDetailsBean.country");
+		String state = req.getParameter("organizationConfigurationDetailsBean.state");
+		String city = req.getParameter("organizationConfigurationDetailsBean.city");
 		
-		/*List<Country> countryList = this.rmsStartupService.getCountries();
-		List<String> timeZoneList = this.rmsStartupService.gettimeZone();
-		List<ClientPreConfiguredData> clientPreConfiguredDataList = this.rmsStartupService.getClientPreConfiguredData();*/
-		
-		List<ClientGlAccountBean> clientGlAccountBeanList = clientBean.getClientGlAccountBean();
-		ClientGlAccountBean clientGlAccountBean = new ClientGlAccountBean();
-		
-		clientGlAccountBeanList.add(clientGlAccountBean);
-		clientGlAccountBean.setAccountId(req.getParameter("accountId"));
-		clientGlAccountBean.setAccountNumber(req.getParameter("accountNumber"));
-		clientGlAccountBean.setAccountType(req.getParameter("accountType"));
-		clientBean.setClientGlAccountBean(clientGlAccountBeanList);
-		
-		attributes.addFlashAttribute("clientBean", clientBean);
-		attributes.addFlashAttribute("selectedCountryValue", req.getParameter("clientConfigurationDetailsBean.country").split(",")[0]);
-		attributes.addFlashAttribute("selectedStateValue", req.getParameter("clientConfigurationDetailsBean.state").split(",")[0]);
-		attributes.addFlashAttribute("selectedCitiValue", req.getParameter("clientConfigurationDetailsBean.city").split(",")[0]);
-		attributes.addFlashAttribute("parent1", clientBean.getParent());
-		attributes.addFlashAttribute("type1", clientBean.getType());
-		attributes.addFlashAttribute("category1", clientBean.getCategory());
-		attributes.addFlashAttribute("timeZoneVal1", clientBean.getTimeZone());
-		System.out.println("============================= state val "+req.getParameter("clientConfigurationDetailsBean.state"));
+		attributes.addFlashAttribute("organizationBean", organizationBean);
+		attributes.addFlashAttribute("selectedCountryValue", country != null
+				&& country.indexOf(",") > 0 ? country.split(",")[0] : "");
+		attributes.addFlashAttribute(
+				"selectedStateValue", state != null
+						&& state.indexOf(",") > 0 ? state.split(",")[0] : "");
+		attributes.addFlashAttribute(
+				"selectedCitiValue", city != null
+						&& city.indexOf(",") > 0 ? city.split(",")[0] : "");
+		attributes.addFlashAttribute("parent1", organizationBean.getParent());
+		attributes.addFlashAttribute("type1", organizationBean.getType());
+		attributes.addFlashAttribute("category1", organizationBean.getCategory());
+		attributes.addFlashAttribute("timeZoneVal1", organizationBean.getTimeZone());
 		return "redirect:manageClientAddClientM";
 	}
-	
+
 	/**
 	 * 
 	 * @param model
-	 * @param clientBean
-	 * @return
-	 * This method is used to save all values from addclient.jsp to database
-	 * and return same page with initial values like country etc..
+	 * @param organizationBean
+	 * @return This method is used to save all values from addclient.jsp to
+	 *         database and return same page with initial values like country
+	 *         etc..
 	 */
 	@RequestMapping(value = "/submitClient", method = RequestMethod.POST)
 	public String submitClient(Model model,
-			@ModelAttribute("clientBean") ClientBean clientBean,
+			@ModelAttribute("organizationBean") OrganizationBean organizationBean,
 			RedirectAttributes attributes) {
-		//attributes.addFlashAttribute("message", "OrganizationInfo has been saved successfully.");
-		model.addAttribute("message", "OrganizationInfo has been saved successfully.");
-		this.organizationService.submitClient(clientBean);
-		//return "redirect:manageClientAddClientM";
+		// attributes.addFlashAttribute("message",
+		// "OrganizationInfo has been saved successfully.");
+		model.addAttribute("successMessage",
+				rmsPropertiesUtil.getMessage(RMSConstant.SAVED_MSG));
+		this.organizationService.submitClient(organizationBean);
+		// return "redirect:manageClientAddClientM";
 		return "success";
 	}
 }

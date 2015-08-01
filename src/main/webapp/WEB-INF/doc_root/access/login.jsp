@@ -107,17 +107,27 @@
 <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.js"></script>
-<script>window.jQuery || document.write('<script src="js/libs/jquery-1.8.2.js"><\/script>')</script>
+<script>
+	window.jQuery
+			|| document
+					.write('<script src="js/libs/jquery-1.8.2.js"><\/script>')
+</script>
 
 <!-- Do the same with jQuery UI -->
 <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
-<script>window.jQuery.ui || document.write('<script src="js/libs/jquery-ui-1.9.1.js"><\/script>')</script>
+<script>
+	window.jQuery.ui
+			|| document
+					.write('<script src="js/libs/jquery-ui-1.9.1.js"><\/script>')
+</script>
 
 <!-- Do the same with Lo-Dash.js -->
 <!--[if gt IE 8]><!-->
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/0.8.2/lodash.js"></script>
-<script>window._ || document.write('<script src="js/libs/lo-dash.js"><\/script>')</script>
+<script>
+	window._ || document.write('<script src="js/libs/lo-dash.js"><\/script>')
+</script>
 <!--<![endif]-->
 <!-- IE8 doesn't like lodash -->
 <!--[if lt IE 9]><script src="http://documentcloud.github.com/underscore/underscore.js"></script><![endif]-->
@@ -125,16 +135,24 @@
 <!-- Do the same with require.js -->
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/require.js/2.0.6/require.js"></script>
-<script>window.require || document.write('<script src="js/libs/require-2.0.6.min.js"><\/script>')</script>
+<script>
+	window.require
+			|| document
+					.write('<script src="js/libs/require-2.0.6.min.js"><\/script>')
+</script>
 
 
 <!-- Load Webfont loader -->
 <script type="text/javascript">
-        window.WebFontConfig = {
-            google: { families: [ 'PT Sans:400,700' ] },
-            active: function(){ $(window).trigger('fontsloaded') }
-        };
-    </script>
+	window.WebFontConfig = {
+		google : {
+			families : [ 'PT Sans:400,700' ]
+		},
+		active : function() {
+			$(window).trigger('fontsloaded')
+		}
+	};
+</script>
 <script defer async
 	src="https://ajax.googleapis.com/ajax/libs/webfont/1.0.28/webfont.js"></script>
 
@@ -145,7 +163,7 @@
 <!--[if lt IE 9]><script src="js/mylibs/polyfills/selectivizr.js"></script><![endif]-->
 <!--[if lt IE 10]><script src="js/mylibs/polyfills/excanvas.js"></script><![endif]-->
 <!--[if lt IE 10]><script src="js/mylibs/polyfills/classlist.js"></script><![endif]-->
-
+<script type="text/javascript" src="<c:url value="/js/base.js"/> "></script>
 
 <!-- scripts concatenated and minified via build script -->
 

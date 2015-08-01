@@ -20,5 +20,6 @@ public class RMSConstant {
 	public static final String NETWORK_PROBLEM = "NETWORK_PROBLEM";
 	public static final String LOGOUT_MESSAGE = "LOGOUT_MESSAGE";
 	public static final String DATABASE_EXCEPTION = "DATABASE_EXCEPTION";
+	public static String SAVED_MSG = "SAVED_MSG";
 
 }
