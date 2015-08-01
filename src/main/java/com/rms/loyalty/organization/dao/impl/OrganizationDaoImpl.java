@@ -18,12 +18,10 @@ public class OrganizationDaoImpl extends
 		GenericDaoHibernateImpl<OrganizationInfo, Long> implements
 		OrganizationtDao {
 
-	@Override
 	public void submitClient(OrganizationInfo organizationInfo) {
 		this.insertEntity(organizationInfo);
 	}
 
-	@Override
 	public List<OrganizationInfo> getClientDetails() {
 		return this.getListByQuery("from OrganizationInfo");
 	}
