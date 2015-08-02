@@ -10,7 +10,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "lms_user_permission")
+@Table(name = "rms_user_permission")
 public class UserPermission {
 	@Id
 	@GeneratedValue

@@ -15,7 +15,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
-@Table(name = "lms_user_credentails")
+@Table(name = "rms_user_credentails")
 public class UserCredentails {
 	@Id
 	@GeneratedValue
