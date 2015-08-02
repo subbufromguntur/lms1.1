@@ -55,11 +55,8 @@ public class UserManagementController {
 			Model model,
 			@ModelAttribute("lmsUserCredentails") UserCredentails userCredentails,
 			RedirectAttributes attributes) {
-		// attributes.addFlashAttribute("message",
-		// "User has been saved successfully.");
 		model.addAttribute("successMessage", "User has been saved successfully.");
 		this.userManagementService.submitUser(userCredentails);
-		// return "redirect:manageUserAddUserM";
 		return "success";
 	}
 

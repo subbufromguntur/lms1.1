@@ -119,12 +119,9 @@ public class OrganizationController {
 	public String submitClient(Model model,
 			@ModelAttribute("organizationBean") OrganizationBean organizationBean,
 			RedirectAttributes attributes) {
-		// attributes.addFlashAttribute("message",
-		// "OrganizationInfo has been saved successfully.");
 		model.addAttribute("successMessage",
 				rmsPropertiesUtil.getMessage(RMSConstant.SAVED_MSG));
 		this.organizationService.submitClient(organizationBean);
-		// return "redirect:manageClientAddClientM";
 		return "success";
 	}
 }
